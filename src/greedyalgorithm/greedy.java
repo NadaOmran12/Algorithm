@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package greedyalgorithm;
 import java.util.Arrays;
 import java.util.Comparator;
+import static java.lang.Integer.max;
 
 
 public class greedy {
@@ -53,14 +50,13 @@ public class greedy {
   
         System.out.println("total value = " + totalValue +"\n"); 
     } 
-  
+     
     // the item value class 
     static class IV  
     { 
         Double p; 
         double wt, val, ind; 
-          
-      
+        
         public IV(int wt, int val, int ind) 
         { 
             this.wt = wt; 
@@ -69,6 +65,45 @@ public class greedy {
             p = new Double(val/wt ); 
         } 
     } 
+    
+    public class DynamicProgramming {
+    
+     public void Table(int n, int C, int [][] Table, int [] wt, int [] v){ 
+       
+       for (int i=0; i<n; i++){
+      
+       for (int w=0; w <= C ; w++){
+           
+           if (i==0 || w==0)
+           {
+               Table[i][w]=0;
+               
+           }
+           else if (wt[i] <= w)
+           {
+             Table[i][w]= max(v[i]+Table[i-1][w-wt[i]], Table[i-1][w]);  
+           }
+           else 
+           {
+               Table[i][w]= Table[i-1][w];
+           }
+       }
+   }
+   for (int x=0;x<5;x++)
+   {
+       for (int y=0; y<9 ;y++) 
+       {   
+           System.out.print("\t"+Table[x][y]);
+           if(y==8){
+               System.out.print("\n");    
+           }
+           if (x==4 && y==8){
+               System.out.println("maximum value=" + Table[x][y]+"\n");
+           }
+       }
+   }  
+   }
+}
     
       public static void main(String[] args) {
         int[] Gvalues = new int []{10,5,15,7,6,18,3};
