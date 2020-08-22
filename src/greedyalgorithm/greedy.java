@@ -114,7 +114,7 @@ public class greedy {
         while (solution[index] < 1) {
             solution[index] = solution[index] + 1;
             if (sum(index, solution, weights) <= C && index == n - 1) {
-                System.out.println("Solution: " + Arrays.toString(solution));
+                System.out.println("Solution = " + Arrays.toString(solution));
                 System.out.println("weight = " + sum(index, solution, weights));
                 update(weights, values, index, solution, finalSolution);
                 System.out.println("--------------------------------------");
