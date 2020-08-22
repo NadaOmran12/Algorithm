@@ -105,6 +105,61 @@ public class greedy {
    }
 }
     
+    public class BackTracking {
+       int v = 0;    
+       int w = 0; 
+        public  void knapsack(int[] weights, int[] values, int C, int index, int[] solution, int[] finalSolution) {  
+        solution[index] = -1;
+        int n = values.length;
+        while (solution[index] < 1) {
+            solution[index] = solution[index] + 1;
+            if (sum(index, solution, weights) <= C && index == n - 1) {
+                System.out.println("Solution: " + Arrays.toString(solution));
+                System.out.println("weight = " + sum(index, solution, weights));
+                update(weights, values, index, solution, finalSolution);
+                System.out.println("--------------------------------------");
+            } else if (index < n - 1) {    
+                knapsack(weights, values, C, index + 1, solution, finalSolution);
+                  
+            } 
+        }
+    }
+  
+    private int sum(int index, int[] weights, int[] sol) {
+        int result = 0;
+        for (int i = 0; i < sol.length; i++) {
+            result += sol[i] * weights[i];
+        }
+        return result;
+    }
+  
+    private void update(int[] weights, int[] values, int index, int[] sol, int[] finalSol) {  
+  
+        int totalValue = 0;
+        int totalWeight = 0;
+  
+        for (int i = 0; i < weights.length; i++) {
+            if (sol[i] == 1) {
+                totalValue += values[i];
+                totalWeight += weights[i];
+            }
+        }
+  
+        if (totalValue > v) {
+            for (int i = 0; i < weights.length; i++) {
+                finalSol[i] = sol[i];
+            }
+            v = totalValue;
+            w = totalWeight;
+            System.out.println("new value = " + v); 
+            
+            
+        }
+      
+    }
+    
+}
+    
       public static void main(String[] args) {
         int[] Gvalues = new int []{10,5,15,7,6,18,3};
         int[] Gweights= new int[]{2,3,5,7,1,4,1};
